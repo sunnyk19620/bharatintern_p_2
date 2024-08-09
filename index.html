@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>weather</title>
+</head>
+<body>
+    <div class="main">
+        <div class="cont">
+        <header class="header">
+            <div class="search">
+            <input type="text"  placeholder="enter your city name" spellcheck="false">
+            </div>
+            <div class="button">
+            <button class="searchbtn"><img src="image/search.jpg" alt="search" class="searchimg"></button>
+            </div>
+        </header>
+    
+        <section class="section">
+            <div class="ion">
+                <img src="image/weather1.jpg" alt="">
+            </div>
+            <div >
+                <h1 class="temp">00°C</h1>
+                <h2 class="city">city name</h2>
+            </div>
+            <div class="cityname">
+
+            </div>
+        </section>
+    
+        <footer class="footer">
+            <div class="col1">
+                <div>
+               <img src="image/humidity.webp" alt="">
+            </div>
+             <div class="humiditytxt">
+                <p class="humidity">00%</p>
+                <p>Humidity</p>
+               </div>
+               
+            </div>
+            <div class="col2">
+                <div>
+                <img src="image/wing.jpg" alt="">
+            </div>
+            <div>
+                <p class="wind">00 Km/h</p>
+                <p>wind speed</p> 
+            </div>
+            </div>
+        </footer>
+    </div>
+    </div>
+
+
+
+    <script>
+        const apikey = "88672ae8c8d92eb634364cae085c577b";
+        const apiurl = "https://api.openweathermap.org/data/2.5/weather?&q=";
+
+
+        const searchBox = document.querySelector(".search input");
+        const searchBTN = document.querySelector(".button button");
+        
+
+        async function  checkWeather(city) {
+               const response = await fetch(apiurl + city + `&appid=${apikey}`); 
+               var data = await response.json();
+
+                console.log(data);
+
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + "Km/h";
+        }
+        searchBTN.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+       })
+        
+    </script>
+</body>
+</html>
